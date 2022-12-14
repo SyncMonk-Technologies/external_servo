@@ -1,19 +1,48 @@
 CC=gcc
+SW_ROOT=$(CURDIR)
+SERVO=$(SW_ROOT)/servo
+FILTER=$(SW_ROOT)/filter
 
-MEDIAN=$(FILTER)/median
-AVERAGE=$(FILTER)/average
-export MEDIAN
-export AVERAGE
+export SW_ROOT
+export FILTER
+export SERVO
 
-SRC_LIST+=$(FILTER)/filter.c
 
-LINCS += -I$(FILTER) \
+ifeq ($(DEBUG), 1)
+	CFLAGS+= -g
+else
+	CFLAGS+= -O2
+endif
+
+CFLAGS+= -Wall
+
+LINCS = -I$(SERVO) \
 	-I$(SW_ROOT)\
-	-I$(MEDIAN)\
-	-I$(AVERAGE)
+	-I$(FILTER)\
+	
+LDLIBS = -lrt -lm 
+
+SRC_LIST=$(SW_ROOT)/clockadj.c\
+	$(SW_ROOT)/logger.c\
+	$(SW_ROOT)/msg.c\
+	$(SW_ROOT)/tsproc.c\
+	$(SW_ROOT)/uds.c\
+	$(SW_ROOT)/main.c\
 
 all:
-	make all -C $(MEDIAN) CFLAGS="$(CFLAGS)"
-	make all -C $(AVERAGE) CFLAGS="$(CFLAGS)"
+	mkdir -p $(SW_ROOT)/obj
+	make all -C $(SERVO) CFLAGS="$(CFLAGS)"
+	make all -C $(FILTER) CFLAGS="$(CFLAGS)"
+
 	$(CC) -c $(SRC_LIST) $(LINCS) $(CFLAGS)
 	mv *.o $(SW_ROOT)/obj
+	$(CC) -o ext_servo $(SW_ROOT)/obj/*.o $(LDLIBS)
+
+clean:
+	rm -rf $(SW_ROOT)/obj
+	rm -rf ext_servo
+	
+
+
+
+
