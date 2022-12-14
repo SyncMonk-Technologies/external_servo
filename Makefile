@@ -14,13 +14,13 @@ else
 	CFLAGS+= -O2
 endif
 
-CFLAGS+= -Wall
+CFLAGS+= -Wall -DLINUX_PTP
 
 LINCS = -I$(SERVO) \
 	-I$(SW_ROOT)\
 	-I$(FILTER)\
-	
-LDLIBS = -lrt -lm 
+
+LDLIBS = -lrt -lm
 
 SRC_LIST=$(SW_ROOT)/clockadj.c\
 	$(SW_ROOT)/logger.c\
@@ -41,7 +41,7 @@ all:
 clean:
 	rm -rf $(SW_ROOT)/obj
 	rm -rf ext_servo
-	
+
 
 
 

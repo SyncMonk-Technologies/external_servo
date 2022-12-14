@@ -23,6 +23,7 @@ struct servo_config servo_config;
 struct device_config device_config = {
     .uds_address = "/var/run/monitor",
     .poll_time = 2000,
+    .filter_len = 10,
 };
 
 static int

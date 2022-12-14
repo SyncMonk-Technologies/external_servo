@@ -17,7 +17,7 @@
 /******************************************************************************
  * Local Definitions
  *****************************************************************************/
-static struct logger_config logger_config = { .log_level = 6, .use_syslog = 1, .use_stdout = 1, .msg_tag = "servo" };
+static struct logger_config logger_config = { .log_level = 7, .use_syslog = 1, .use_stdout = 1, .msg_tag = "servo" };
 static FILE* log_fp;
 
 /******************************************************************************
