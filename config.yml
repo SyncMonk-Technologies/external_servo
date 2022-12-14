@@ -1,0 +1,53 @@
+device:
+  /** 
+	 * Address for event monitor.
+	 * This will be UDS address for LinuxPTP.
+	 */ 
+	uds_address: 
+	/**
+	 * PTP UDS address.
+	 * PTP source address. If available its will validate the source
+	 * and reject packets if the source is not correct.
+	 */
+	ptp_uds_address:
+	/**
+	 * TOD device ID. 
+	 */
+	tod_device:
+	/**
+	 * frequency device ID.
+	 */
+	freq_device:
+
+servo_config:
+	/**
+	 * Servo name. (can be PI, LINEAR_REG, NTP_SHM)
+	 */
+	servo_name:
+	/**
+	 * Maximum frequency adjustments.
+	 */
+	max_freq_adjustment:
+	/**
+	 * Timestamp type (HW_TIMESTAMP, SW_TIMESTAMP)
+	 */
+	timestamp:
+	step_threshold:
+	first_step_threshold:
+	servo_offset_threshold:
+	servo_num_offset_values:
+	pi_proportional_const:
+	pi_integral_const:
+	pi_proportional_scale:
+	pi_proportional_exponent:
+	pi_proportional_norm_max:
+	pi_integral_scale:
+	pi_integral_exponent:
+	pi_integral_norm_max:
+	segment:
+
+logging:
+	logging_level:
+	message_tag:
+	log_file:
+	use_stdout:
