@@ -78,6 +78,7 @@ pi_sample(struct servo* servo, int64_t offset, uint64_t local_ts, double weight,
         if (freq_est_interval > 1000.0) {
             freq_est_interval = 1000.0;
         }
+        pr_debug("localdiff %f < freq_est_interval %f", localdiff, freq_est_interval);
         if (localdiff < freq_est_interval) {
             *state = SERVO_UNLOCKED;
             break;
@@ -91,13 +92,18 @@ pi_sample(struct servo* servo, int64_t offset, uint64_t local_ts, double weight,
         else if (s->drift > servo->max_frequency)
             s->drift = servo->max_frequency;
 
+        pr_debug(
+          "first_update:  %d first_step_thd: %f offset: %f", servo->first_update, servo->first_step_threshold, offset);
         if ((servo->first_update && servo->first_step_threshold && servo->first_step_threshold < llabs(offset)) ||
-            (servo->step_threshold && servo->step_threshold < llabs(offset)))
+            (servo->step_threshold && servo->step_threshold < llabs(offset))) {
+            pr_debug("%s %d", __func__, __LINE__);
             *state = SERVO_JUMP;
-        else
+        } else {
+            pr_debug("%s %d", __func__, __LINE__);
             *state = SERVO_LOCKED;
-
+        }
         ppb = s->drift;
+        pr_debug("ppb: %f", ppb);
         s->count = 2;
         break;
     case 2:
@@ -116,6 +122,7 @@ pi_sample(struct servo* servo, int64_t offset, uint64_t local_ts, double weight,
 
         ki_term = s->ki * offset * weight;
         ppb = s->kp * offset * weight + s->drift + ki_term;
+        pr_debug("kp: %f offset: %ld weight: %f drift: %f ki_term: %f", s->kp, offset, weight, s->drift, ki_term);
         if (ppb < -servo->max_frequency) {
             ppb = -servo->max_frequency;
         } else if (ppb > servo->max_frequency) {
@@ -199,5 +206,13 @@ pi_servo_create(struct servo_config* cfg)
             s->configured_pi_ki_scale = HWTS_KI_SCALE;
         }
     }
+    pr_debug("configured_pi_ki: %f", s->configured_pi_ki);
+    pr_debug("configured_pi_kp: %f", s->configured_pi_kp);
+    pr_debug("configured_pi_kp_scale: %f", s->configured_pi_kp_scale);
+    pr_debug("configured_pi_kp_exponent: %f", s->configured_pi_kp_exponent);
+    pr_debug("configured_pi_kp_norm_max: %f", s->configured_pi_kp_norm_max);
+    pr_debug("configured_pi_ki_scale: %f", s->configured_pi_ki_scale);
+    pr_debug("configured_pi_ki_exponent: %f", s->configured_pi_ki_exponent);
+    pr_debug("configured_pi_ki_norm_max: %f", s->configured_pi_ki_norm_max);
     return &s->servo;
 }

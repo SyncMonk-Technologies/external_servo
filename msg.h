@@ -6,7 +6,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-
 #define SYNC 0x0
 #define DELAY_REQ 0x1
 #define PDELAY_REQ 0x2
@@ -124,10 +123,9 @@ struct signaling_msg
     struct ptp_header header;
     struct PortIdentity targetPortIdentity;
     uint8_t suffix[0];
-};
-
+} __attribute__((__packed__));
 
 extern int
-process_message(uint8_t* data, uint16_t *tlv_type, int64_t *master_time, int64_t *slave_time);
+process_message(uint8_t* data, uint16_t* tlv_type, int64_t* master_time, int64_t* slave_time);
 
 #endif /* __MSG_H__ */

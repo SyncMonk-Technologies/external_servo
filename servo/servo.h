@@ -59,21 +59,19 @@ struct servo
     void (*leap)(struct servo* servo, int leap);
 };
 
-extern double 
-servo_sample(struct servo *servo,
-	    int64_t offset,
-		    uint64_t local_ts,
-		    double weight,
-		    enum servo_state *state);
+extern double
+servo_sample(struct servo* servo, int64_t offset, uint64_t local_ts, double weight, enum servo_state* state);
 
-extern 
-double servo_rate_ratio(struct servo *servo);
+extern double
+servo_rate_ratio(struct servo* servo);
 
+extern struct servo*
+servo_create(struct servo_config* cfg);
 
-extern struct servo 
-*servo_create(struct servo_config *cfg);
+extern void
+servo_destroy(struct servo* servo);
 
-extern void 
-servo_destroy(struct servo *servo);
+extern void
+servo_sync_interval(struct servo* servo, double interval);
 
 #endif /* __SERVO_H__ */

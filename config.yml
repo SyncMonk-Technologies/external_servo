@@ -1,53 +1,30 @@
-device:
-  /** 
-	 * Address for event monitor.
-	 * This will be UDS address for LinuxPTP.
-	 */ 
-	uds_address: 
-	/**
-	 * PTP UDS address.
-	 * PTP source address. If available its will validate the source
-	 * and reject packets if the source is not correct.
-	 */
-	ptp_uds_address:
-	/**
-	 * TOD device ID. 
-	 */
-	tod_device:
-	/**
-	 * frequency device ID.
-	 */
-	freq_device:
-
-servo_config:
-	/**
-	 * Servo name. (can be PI, LINEAR_REG, NTP_SHM)
-	 */
-	servo_name:
-	/**
-	 * Maximum frequency adjustments.
-	 */
-	max_freq_adjustment:
-	/**
-	 * Timestamp type (HW_TIMESTAMP, SW_TIMESTAMP)
-	 */
-	timestamp:
-	step_threshold:
-	first_step_threshold:
-	servo_offset_threshold:
-	servo_num_offset_values:
-	pi_proportional_const:
-	pi_integral_const:
-	pi_proportional_scale:
-	pi_proportional_exponent:
-	pi_proportional_norm_max:
-	pi_integral_scale:
-	pi_integral_exponent:
-	pi_integral_norm_max:
-	segment:
-
 logging:
-	logging_level:
-	message_tag:
-	log_file:
-	use_stdout:
+    logging_level: 7
+    use_syslog: 0
+    msg_tag: servo
+    use_stdout: 1
+
+servo:
+    type: pi
+    software_timestamp: 1
+    step_threshold: 0.0
+    first_step_threshold: 0.00002
+    servo_offset_threshold: 0
+    servo_num_offset_values: 0
+    pi_proportional_const: 0.0
+    pi_integral_const: 0.0
+    pi_proportional_scale: 0.0
+    pi_proportional_exponent: -0.3
+    pi_proportional_norm_max: 0.7
+    pi_integral_scale: 0.0
+    pi_integral_exponent: 0.4
+    pi_integral_norm_max: 0.3
+    logMinDelayReqInterval: 0
+    logSyncInterval: 0
+
+device:
+    monitor_uds_address: /var/run/monitor
+    tsproc_mode: filter
+    delay_filter: moving_median
+    delay_filter_length: 10
+

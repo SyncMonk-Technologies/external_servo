@@ -20,7 +20,7 @@ LINCS = -I$(SERVO) \
 	-I$(SW_ROOT)\
 	-I$(FILTER)\
 
-LDLIBS = -lrt -lm
+LDLIBS = -lrt -lm -lyaml
 
 SRC_LIST=$(SW_ROOT)/clockadj.c\
 	$(SW_ROOT)/logger.c\
@@ -28,6 +28,7 @@ SRC_LIST=$(SW_ROOT)/clockadj.c\
 	$(SW_ROOT)/tsproc.c\
 	$(SW_ROOT)/uds.c\
 	$(SW_ROOT)/main.c\
+	$(SW_ROOT)/config.c\
 
 all:
 	mkdir -p $(SW_ROOT)/obj

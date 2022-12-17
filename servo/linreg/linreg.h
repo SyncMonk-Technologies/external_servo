@@ -5,6 +5,6 @@
 #include "config.h"
 
 struct servo*
-linreg_servo_create(struct servo_config *cfg);
+linreg_servo_create(struct servo_config* cfg);
 
 #endif /* __LINREG_H__ */

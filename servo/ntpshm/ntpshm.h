@@ -4,6 +4,7 @@
 #include "servo.h"
 #include "config.h"
 
-struct servo *ntpshm_servo_create(struct servo_config *cfg);
+struct servo*
+ntpshm_servo_create(struct servo_config* cfg);
 
 #endif /* __NTPSHM_H__ */

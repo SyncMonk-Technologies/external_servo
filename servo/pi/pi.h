@@ -4,6 +4,7 @@
 #include <config.h>
 #include <servo.h>
 
-struct servo *pi_servo_create(struct servo_config *cfg);
+struct servo*
+pi_servo_create(struct servo_config* cfg);
 
 #endif /** __PI_H__ **/

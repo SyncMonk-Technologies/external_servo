@@ -3,6 +3,7 @@
 
 #include "filter.h"
 
-struct filter *mmedian_create(int length);
+struct filter*
+mmedian_create(int length);
 
 #endif /* __MMEDIAN_H__ */

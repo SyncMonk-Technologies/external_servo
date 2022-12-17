@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <time.h>
+#include <float.h>
 
 #include "uds.h"
 
@@ -32,6 +33,7 @@ struct key_val
 #define VAR_TYPE_INTEGER 1
 #define VAR_TYPE_STRING 2
 #define VAR_TYPE_ENUM 3
+#define VAR_TYPE_DOUBLE 4
 
 struct field_info
 {
@@ -42,11 +44,11 @@ struct field_info
     /*! variable type. */
     uint8_t var_type;
     /*! minimum value. */
-    uint32_t min;
+    double min;
     /*! maximum value. */
-    uint32_t max;
+    double max;
     /*! default value. */
-    uint32_t def;
+    double def;
     /*! default str */
     char* default_str;
     /*! enum list. */
@@ -81,41 +83,43 @@ parse_config_file(char* filename);
  *
  * @{
  */
-#define UDS_ADDRESS 0
-#define TOD_DEV 1
-#define FREQ_DEV 2
-#define SERVO_TYPE 3
-#define SYNC_INTERVAL 4
-#define DELAY_INTERVAL 5
-#define STEP_THRESHOLD 6
-#define FIRST_STEP_THRESHOLD 7
-#define SERVO_OFFSET_THRESHOLD 8
-#define SERVO_NUM_OFFSET_VALUES 9
+#define SERVO_TYPE 0
+#define SW_TS 1
+#define MAX_FREQUENCY 2
+#define STEP_THRESHOLD 3
+#define FIRST_STEP_THRESHOLD 4
+#define OFFSET_THRESHOLD 5
+#define NUM_OFFSET_VALUES 6
+#define CURRENT_OFFSET_VALUES 7
+#define PI_PROPORTIONAL 8
+#define PI_INTEGRAL 9
+#define PI_PROPORTIONAL_SCALE 10
+#define PI_PROPORTIONAL_EXPONENT 11
+#define PI_PROPORTIONAL_NORM_MAX 12
+#define PI_INTEGRAL_SCALE 13
+#define PI_INTEGRAL_EXPONENT 14
+#define PI_INTEGRAL_NORMAL_MAX 15
+#define NTPSHM_SEGMENT 16
+#define LOGMIN_DELAY_REQ_INTERVAL 17
+#define LOG_SYNC_INTERVAL 18
 /** @} */
 
 /**
- * @defgroup pi servo config.
+ * @defgroup Device config.
  *
  * @{
  */
-#define PROPORTIONAL_CONSTANT 0
-#define INTEGRAL_CONSTANT 1
-#define PROPORTIONAL_SCALE 2
-#define PROPORTIONAL_EXPONENT 3
-#define PROPORTIONAL_NORM_MAX 4
-#define INTEGRAL_SCALE 5
-#define INTEGRAL_EXPONENT 6
-#define INTEGRAL_NORM_MAX 7
+#define TOD_DEVICE 0
+#define FREQ_DEVICE 1
+#define MONITOR_UDS_ADDRESS 2
+#define POLL_TIME 3
+#define TSPROC_MODE 4
+#define DELAY_FILTER 5
+#define FILTER_LEN 6
 /** @} */
 
-/**
- * @defgroup ntpshm NTP SHM config
- *
- */
-#define SEGMENT 0
-
 #define MAX_MSG_TAG_LEN 16
-
+#define MAX_CONFIG_STR_LEN 32
 /**
  * @brief Available Servo types.
  *
@@ -127,14 +131,26 @@ enum servo_type
     NTP_SHM,
 };
 
+enum tsproc_type
+{
+    FILTER,
+    RAW,
+    FILTER_WEIGHT,
+    RAW_WEIGHT,
+};
+
+enum delay_filter
+{
+    AVERAGE,
+    MEDIAN
+};
+
 struct servo_config
 {
     enum servo_type type;
     uint8_t sw_ts;
-    double servo_step_threshold;
-    double servo_first_step_threshold;
     double max_frequency;
-    double intial_adj;
+    int intial_adj;
     double step_threshold;
     double first_step_threshold;
     int first_update;
@@ -150,22 +166,31 @@ struct servo_config
     double ki_exponent;
     double ki_norm_max;
     int ntpshm_segment;
+    int logMinDelayReqInterval;
+    int logSyncInterval;
 };
 
 struct device_config
 {
+    int fd;
     clockid_t tod_clk_id;
     clockid_t freq_clk_id;
-    char* tod_device;
-    char* freq_device;
-    int fd;
+    char tod_device[MAX_CONFIG_STR_LEN];
+    char freq_device[MAX_CONFIG_STR_LEN];
+    char uds_address[MAX_CONFIG_STR_LEN];
     struct address daddr;
-    char* uds_address;
-    char* ptp_uds_address;
-	uint16_t poll_time;
-	uint8_t tsproc_mode;
-	uint8_t delay_filter;
-	int filter_len;
+    uint16_t poll_time;
+    enum delay_filter filter;
+    int filter_len;
+    enum tsproc_type mode;
 };
 
+extern int
+servo_config_parse(char* filename);
+
+extern void
+device_configure(struct device_config* config);
+
+extern void
+servo_configure(struct servo_config* config);
 #endif /*! __CONFIG_H__*/
