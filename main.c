@@ -141,7 +141,7 @@ clock_update(struct tsproc* tsp, struct servo* servo, int64_t t1, int64_t t2)
     pr_debug("master_offset :%ld", master_offset.ns);
     offset = tmv_to_nanoseconds(master_offset);
     pr_debug("master_offset :%ld", offset);
-    adj = servo_sample(servo, offset, t2, weight, &state);
+    adj = servo_sample(servo, offset, tmv_to_nanoseconds(local_ts), weight, &state);
     pr_debug("adj : %f", adj);
 
     tsproc_set_clock_rate_ratio(tsp, servo_rate_ratio(servo));
@@ -156,13 +156,13 @@ clock_update(struct tsproc* tsp, struct servo* servo, int64_t t1, int64_t t2)
         tsproc_reset(tsp, 0);
         break;
     case SERVO_LOCKED:
-        clockadj_set_freq(device_config.freq_clk_id, adj);
+        clockadj_set_freq(device_config.freq_clk_id, -adj);
         if (device_config.freq_clk_id == CLOCK_REALTIME) {
             sysclk_set_sync();
         }
         break;
     case SERVO_LOCKED_STABLE:
-        clockadj_set_phase(device_config.freq_clk_id, adj);
+        clockadj_set_phase(device_config.freq_clk_id, -adj);
         if (device_config.freq_clk_id == CLOCK_REALTIME) {
             sysclk_set_sync();
         }

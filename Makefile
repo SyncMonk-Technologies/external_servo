@@ -14,7 +14,7 @@ else
 	CFLAGS+= -O2
 endif
 
-CFLAGS+= -Wall -DLINUX_PTP
+CFLAGS+= -Wall -Werror -DLINUX_PTP
 
 LINCS = -I$(SERVO) \
 	-I$(SW_ROOT)\
