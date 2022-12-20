@@ -1,3 +1,9 @@
+/**
+ * @file ts2phc.c
+ * @note Copyright (C) 2013 Richard Cochran <richardcochran@gmail.com>
+ * @note SPDX-License-Identifier: GPL-2.0+
+ */
+
 #include <errno.h>
 #include <math.h>
 #include <stdlib.h>

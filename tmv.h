@@ -1,3 +1,9 @@
+/**
+ * @file tmv.h
+ * @brief Implements an abstract time value type.
+ * @note Copyright (C) 2011 Richard Cochran <richardcochran@gmail.com>
+ * @note SPDX-License-Identifier: GPL-2.0+
+ */ 
 #ifndef __TMV_H__
 #define __TMV_H__
 

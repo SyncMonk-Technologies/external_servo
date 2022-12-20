@@ -1,3 +1,10 @@
+/**
+ * @file filter.h
+ * @brief Implements a generic filter interface.
+ * @note Copyright (C) 2013 Miroslav Lichvar <mlichvar@redhat.com>
+ *
+ * @note SPDX-License-Identifier: GPL-2.0+
+ */
 #ifndef __FILTER_H__
 #define __FILTER_H__
 

@@ -1,3 +1,9 @@
+/**
+ * @file servo.c
+ * @note Copyright (C) 2011 Richard Cochran <richardcochran@gmail.com>
+ * @note SPDX-License-Identifier: GPL-2.0+
+ */
+ 
 #ifndef __SERVO_H__
 #define __SERVO_H__
 

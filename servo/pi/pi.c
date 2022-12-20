@@ -1,3 +1,9 @@
+/**
+ * @file pi.c
+ * @brief Implements a Proportional Integral clock servo.
+ * @note Copyright (C) 2011 Richard Cochran <richardcochran@gmail.com>
+ * @note SPDX-License-Identifier: GPL-2.0+
+ */ 
 #include <stdint.h>
 #include <stdlib.h>
 #include <math.h>

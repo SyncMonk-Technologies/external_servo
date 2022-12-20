@@ -1,7 +1,7 @@
 /**
- * \file interface.h
- *
- * UDS for packet processing.
+ * @file uds.h
+ * @note Copyright (C) 2022 SyncMonk Technologies <services@syncmonk.net>
+ * @note SPDX-License-Identifier: GPL-2.0+
  */
 
 #ifndef __UDS_H__

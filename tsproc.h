@@ -1,3 +1,9 @@
+/**
+ * @file tsproc.h
+ * @note Copyright (C) 2015 Miroslav Lichvar <mlichvar@redhat.com>
+ * @note SPDX-License-Identifier: GPL-2.0+
+ */
+
 #ifndef __TSPROC_H__
 #define __TSPROC_H__
 

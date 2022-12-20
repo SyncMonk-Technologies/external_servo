@@ -1,3 +1,11 @@
+/**
+ * @file ntpshm.c
+ * @brief Implements a servo providing the NTP SHM reference clock to
+ *        send the samples to another process.
+ * @note Copyright (C) 2014 Miroslav Lichvar <mlichvar@redhat.com>
+ * @note SPDX-License-Identifier: GPL-2.0+
+ */
+ 
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/shm.h>

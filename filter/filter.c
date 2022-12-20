@@ -1,3 +1,9 @@
+/**
+ * @file filter.c
+ * @note Copyright (C) 2013 Miroslav Lichvar <mlichvar@redhat.com>
+ * @note SPDX-License-Identifier: GPL-2.0+
+ */
+ 
 #include "filter.h"
 #include "mave.h"
 #include "mmedian.h"

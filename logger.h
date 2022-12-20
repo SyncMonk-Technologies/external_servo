@@ -1,3 +1,9 @@
+/**
+ * @file logger.h
+ * @note Copyright (C) 2022 SyncMonk Technologies <services@syncmonk.net>
+ * @note SPDX-License-Identifier: GPL-2.0+
+ */
+
 #ifndef __LOGGER_H__
 #define __LOGGER_H__
 

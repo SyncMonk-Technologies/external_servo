@@ -1,3 +1,9 @@
+/**
+ * @file msg.c
+ * @note Copyright (C) 2022 SyncMonk Technologies <services@syncmonk.net>
+ * @note SPDX-License-Identifier: GPL-2.0+
+ */
+
 #include <stdint.h>
 #include <asm/byteorder.h>
 #include <arpa/inet.h>

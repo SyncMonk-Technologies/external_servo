@@ -1,3 +1,10 @@
+/**
+ * @file clockadj.h
+ * @brief Wraps clock_adjtime functionality.
+ * @note Copyright (C) 2013 Miroslav Lichvar <mlichvar@redhat.com>
+ * @note SPDX-License-Identifier: GPL-2.0+
+ */
+
 #ifndef __CLOCKADJ_H__
 #define __CLOCKADJ_H__
 
