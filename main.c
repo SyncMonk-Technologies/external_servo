@@ -27,39 +27,7 @@
 #include "servo.h"
 
 struct servo_config servo_config;
-#if 0
-= {
-    .type = PI_SERVO,
-#ifndef AURA
-    .sw_ts = 1,
-#endif
-    .step_threshold = 0,
-    .first_step_threshold = 0.00002,
-    .offset_threshold = 0,
-    .num_offset_values = 10,
-    .kp = 0,
-    .ki = 0,
-    .ki_scale = 0.001,
-    .kp_scale = 0.1,
-    .kp_exponent = -0.3,
-    .kp_norm_max = 0.7,
-    .ki_exponent = 0.4,
-    .ki_norm_max = 0.3,
-};
-#endif
 struct device_config device_config;
-#if 0
-= {
-    .uds_address = "/var/run/monitor",
-    .poll_time = 2000,
-    .filter_len = 10,
-    .filter = 1,
-#ifdef AURA
-    .tod_device = "/dev/ptp0",
-    .freq_device = "/dev/ptp1",
-#endif
-};
-#endif
 
 static int
 phc_caps_get(clockid_t clkid, struct ptp_clock_caps* caps)
@@ -142,9 +110,10 @@ clock_update(struct tsproc* tsp, struct servo* servo, int64_t t1, int64_t t2)
     local_ts.ns = t2;
 
     tsproc_down_ts(tsp, remote_ts, local_ts);
-    tsproc_update_offset(tsp, &master_offset, &weight);
+    if (tsproc_update_offset(tsp, &master_offset, &weight)) {
+        return;
+    }
 
-    pr_debug("master_offset :%ld", master_offset.ns);
     offset = tmv_to_nanoseconds(master_offset);
     pr_debug("master_offset :%ld", offset);
     adj = servo_sample(servo, offset, tmv_to_nanoseconds(local_ts), weight, &state);
